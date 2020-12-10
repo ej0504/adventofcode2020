@@ -25,9 +25,11 @@ def search_for_valid_perm(nums, ans, jolt_rating):
         return result;
   return None;
 
-def count_valid_perms(nums, index, jolt_rating, target, dict):
-  if jolt_rating == target:
+def count_valid_perms(nums, index, dict):
+  if index == len(nums):
     return 1;
+
+  jolt_rating = 0 if index == 0 else nums[index - 1];
 
   count = 0;
   for i in range(index, len(nums)):
@@ -35,7 +37,7 @@ def count_valid_perms(nums, index, jolt_rating, target, dict):
       if i in dict:
         count += dict[i];
       else:
-        i_count = count_valid_perms(nums, i + 1, nums[i], target, dict);
+        i_count = count_valid_perms(nums, i + 1, dict);
         dict[i] = i_count;
         count += i_count;
 
@@ -67,7 +69,7 @@ def find_jolt_difference_product(nums):
 
 def count_perms(nums):
   dict = {};
-  counts = count_valid_perms(nums, 0, 0, nums[-1], dict);
+  counts = count_valid_perms(nums, 0, dict);
   return counts;
 
 
